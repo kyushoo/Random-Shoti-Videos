@@ -67,7 +67,6 @@
       border-radius: 10px; 
     }
 
-    
     body.dark-mode {
       background-color: #111;
       color: #fff;
@@ -78,7 +77,6 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
     }
 
-    
     @media (max-width: 600px) {
       button, a.button {
         font-size: 14px;
@@ -92,36 +90,35 @@
   </style>
   <script>
     function loadVideo() {
-      const loadButton = document.getElementById('loadButton');
-      loadButton.disabled = true;
-      loadButton.textContent = 'Loading...';
+  const loadButton = document.getElementById('loadButton');
+  loadButton.disabled = true;
+  loadButton.textContent = 'Loading...';
 
-      fetch('https://shoti-api.libyzxy0.repl.co/api/get-shoti?apikey=shoti-UnlIfhfGoixLHO_TczGFEhPMFNNWos')
-        .then(response => response.json())
-        .then(data => {
-          const videoUrl = data.data.url;
-          const videoElement = document.getElementById('myVideo');
-          videoElement.src = videoUrl;
-          videoElement.style.display = 'block';
+  fetch('https://shoti-api.libyzxy0.repl.co/api/get-shoti?apikey=shoti-UnlIfhfGoixLHO_TczGFEhPMFNNWos')
+    .then(response => response.json())
+    .then(data => {
+      const videoUrl = data.data.url;
+      const videoElement = document.getElementById('myVideo');
+      videoElement.src = videoUrl;
+      videoElement.style.display = 'block';
 
-     
-          const redirectButton = document.getElementById('redirectButton');
-          const regenerateButton = document.getElementById('regenerateButton');
-          redirectButton.style.display = 'block';
-          regenerateButton.style.display = 'block';
-          loadButton.disabled = false;
-          loadButton.textContent = 'Generate Some Shoti Videos';
+      const redirectButton = document.getElementById('redirectButton');
+      const regenerateButton = document.getElementById('regenerateButton');
+      redirectButton.style.display = 'block';
+      regenerateButton.style.display = 'block';
+      loadButton.disabled = false;
+      loadButton.textContent = 'Generate Some Shoti Videos';
 
-          const tiktokUrl = data.data.tiktok_url;
+      const tiktokUrl = data.data.tiktok_url;
           redirectButton.href = tiktokUrl;
-          regenerateButton.onclick = loadVideo;
-        })
-        .catch(error => {
-          console.log('Error:', error);
-          loadButton.disabled = false;
-          loadButton.textContent = 'Regenerate Some Shoti Videos';
-        });
-    }
+      regenerateButton.onclick = loadVideo;
+    })
+    .catch(error => {
+      console.log('Error:', error);
+      loadButton.disabled = false;
+      loadButton.textContent = 'Regenerate Some Shoti Videos';
+    });
+}
 
     function toggleDarkMode() {
       document.body.classList.toggle('dark-mode');
@@ -137,11 +134,10 @@
   <br>
   <button id="loadButton" onclick="loadVideo()">Generate Some Shoti Videos</button>
   <br>
-  <video id="myVideo" controls>
+  <video id="myVideo" controls autoplay>
     Your browser does not support the video tag.
   </video>
   <br>
-  <b>Made By Sensui</b>
+<a id="redirectButton" class="button" style="display: none" target="_blank">Made By Sensui</a>
 </body>
-  </html>
-    
+</html>
