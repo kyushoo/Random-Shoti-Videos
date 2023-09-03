@@ -99,7 +99,7 @@
     Your browser does not support the video tag.
   </video>
   <br>
-  <a id="redirectButton" class="button" style="display: none" target="_blank">Uploaded By<br>Nickname<br>@Username</a>
+  <a id="redirectButton" class="button" style="display: none" target="_blank">Uploaded By<br><span id="nickname"></span><br>@<span id="username"></span></a>
 
   <script>
     function loadVideo() {
@@ -126,10 +126,13 @@
           redirectButton.href = tiktokUrl;
           regenerateButton.onclick = loadVideo;
 
-          // Display "Uploaded By," user's nickname, and username with a link to TikTok
+          // Display user's nickname and username
           const userNickname = data.user.nickname;
           const userUsername = data.user.username;
-          redirectButton.innerHTML = `Uploaded By<br>${userNickname}<br>@${userUsername}`;
+          const nicknameSpan = document.getElementById('nickname');
+          const usernameSpan = document.getElementById('username');
+          nicknameSpan.textContent = userNickname;
+          usernameSpan.textContent = userUsername;
         })
         .catch(error => {
           console.log('Error:', error);
