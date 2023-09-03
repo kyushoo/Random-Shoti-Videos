@@ -87,8 +87,36 @@
         width: 90%;
       }
     }
+
+  /* Splash screen styles */
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fff; /* Set your desired background color */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; /* Ensure it's on top of other content */
+    }
+
+    /* Style for the image or content within the splash screen */
+    .splash-screen img {
+      max-width: 100%;
+      max-height: 100%;
+    }
   </style>
   <script>
+    // JavaScript to hide the splash screen after a delay
+    window.addEventListener('load', function () {
+      const splashScreen = document.getElementById('splashScreen');
+      setTimeout(function () {
+        splashScreen.style.display = 'none';
+      }, 2000); // Adjust the time (in milliseconds) as needed (2 seconds in this example)
+    });
+    
     function loadVideo() {
       const loadButton = document.getElementById('loadButton');
       loadButton.disabled = true;
@@ -140,6 +168,11 @@
   </script>
 </head>
 <body>
+  <!-- Splash Screen -->
+  <div id="splashScreen" class="splash-screen">
+    <!-- Use the image URL for your splash screen -->
+    <img src="https://telegra.ph/file/a392b61d11e85f68750ac.jpg" alt="Sensui">
+  </div>
   <div class="top-bar">
     <h1>Random Shoti Video Generator</h1>
   </div>
