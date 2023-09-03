@@ -99,49 +99,43 @@
     Your browser does not support the video tag.
   </video>
   <br>
-  <a id="redirectButton" class="button" style="display: none" target="_blank">Made By Sensui</a>
+  <a id="redirectButton" class="button" style="display: none" target="_blank">Uploaded By<br>Nickname<br>@Username</a>
 
   <script>
     function loadVideo() {
-  const loadButton = document.getElementById('loadButton');
-  loadButton.disabled = true;
-  loadButton.textContent = 'Loading...';
+      const loadButton = document.getElementById('loadButton');
+      loadButton.disabled = true;
+      loadButton.textContent = 'Loading...';
 
-  fetch('https://shoti-api.libyzxy0.repl.co/api/get-shoti?apikey=shoti-1h9ccv106636rleevug')
-    .then(response => response.json())
-    .then(data => {
-      const videoUrl = data.data.url;
-      const videoElement = document.getElementById('myVideo');
-      videoElement.src = videoUrl;
-      videoElement.style.display = 'block';
+      fetch('https://shoti-api.libyzxy0.repl.co/api/get-shoti?apikey=shoti-1h9ccv106636rleevug')
+        .then(response => response.json())
+        .then(data => {
+          const videoUrl = data.data.url;
+          const videoElement = document.getElementById('myVideo');
+          videoElement.src = videoUrl;
+          videoElement.style.display = 'block';
 
-      const redirectButton = document.getElementById('redirectButton');
-      const regenerateButton = document.getElementById('regenerateButton');
-      redirectButton.style.display = 'block';
-      regenerateButton.style.display = 'block';
-      loadButton.disabled = false;
-      loadButton.textContent = 'Generate Some Shoti Videos';
+          const redirectButton = document.getElementById('redirectButton');
+          const regenerateButton = document.getElementById('regenerateButton');
+          redirectButton.style.display = 'block';
+          regenerateButton.style.display = 'block';
+          loadButton.disabled = false;
+          loadButton.textContent = 'Generate Some Shoti Videos';
 
-      const tiktokUrl = data.data.tiktok_url;
-      redirectButton.href = tiktokUrl;
-      regenerateButton.onclick = loadVideo;
+          const tiktokUrl = data.data.tiktok_url;
+          redirectButton.href = tiktokUrl;
+          regenerateButton.onclick = loadVideo;
 
-      // Display "Uploaded By," user's nickname, and username with a link to TikTok
-      const userNickname = data.user.nickname;
-      const userUsername = data.user.username;
-      redirectButton.innerHTML = `Uploaded By<br>${userNickname}<br>@${userUsername}`;
-    })
-    .catch(error => {
-      console.log('Error:', error);
-      loadButton.disabled = false;
-      loadButton.textContent = 'Regenerate Some Shoti Videos';
-    });
-        }
-    
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-      const videoElement = document.getElementById('myVideo');
-      videoElement.classList.toggle('dark-mode');
+          // Display "Uploaded By," user's nickname, and username with a link to TikTok
+          const userNickname = data.user.nickname;
+          const userUsername = data.user.username;
+          redirectButton.innerHTML = `Uploaded By<br>${userNickname}<br>@${userUsername}`;
+        })
+        .catch(error => {
+          console.log('Error:', error);
+          loadButton.disabled = false;
+          loadButton.textContent = 'Regenerate Some Shoti Videos';
+        });
     }
   </script>
 </body>
