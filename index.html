@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Shoti Video Generator</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
     body {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      height: 100vh;
       margin: 0;
       font-family: 'Arial', sans-serif;
       background-color: #222;
@@ -87,20 +88,6 @@
       }
     }
   </style>
-</head>
-<body>
-  <div class="top-bar">
-    <h1>Random Shoti Video Generator</h1>
-  </div>
-  <br>
-  <button id="loadButton" onclick="loadVideo()">Generate Some Shoti Videos</button>
-  <br>
-  <video id="myVideo" controls autoplay>
-    Your browser does not support the video tag.
-  </video>
-  <br>
-  <a id="redirectButton" class="button" style="display: none" target="_blank">Uploaded By<br><span id="nickname"></span><br>@<span id="username"></span></a>
-
   <script>
     function loadVideo() {
       const loadButton = document.getElementById('loadButton');
@@ -117,22 +104,26 @@
 
           const redirectButton = document.getElementById('redirectButton');
           const regenerateButton = document.getElementById('regenerateButton');
+          const uploadedByButton = document.getElementById('uploadedByButton');
+          
+          // Set the "Uploaded By" text on the button using the username
+          uploadedByButton.textContent = `Uploaded By: @${data.user.username}`;
+          uploadedByButton.style.display = 'block'; // Ensure the button is displayed
+
           redirectButton.style.display = 'block';
           regenerateButton.style.display = 'block';
           loadButton.disabled = false;
           loadButton.textContent = 'Generate Some Shoti Videos';
 
-          const tiktokUrl = data.data.tiktok_url;
+          const tiktokUsername = data.user.username;
+          const tiktokUrl = `https://www.tiktok.com/@${tiktokUsername}`;
           redirectButton.href = tiktokUrl;
           regenerateButton.onclick = loadVideo;
 
-          // Display user's nickname and username
-          const userNickname = data.user.nickname;
-          const userUsername = data.user.username;
-          const nicknameSpan = document.getElementById('nickname');
-          const usernameSpan = document.getElementById('username');
-          nicknameSpan.textContent = userNickname;
-          usernameSpan.textContent = userUsername;
+          // Set the "Uploaded By" button's click action to redirect
+          uploadedByButton.onclick = function() {
+            window.location.href = tiktokUrl;
+          };
         })
         .catch(error => {
           console.log('Error:', error);
@@ -140,6 +131,27 @@
           loadButton.textContent = 'Regenerate Some Shoti Videos';
         });
     }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      const videoElement = document.getElementById('myVideo');
+      videoElement.classList.toggle('dark-mode');
+    }
   </script>
+</head>
+<body>
+  <div class="top-bar">
+    <h1>Random Shoti Video Generator</h1>
+  </div>
+  <br>
+  <button id="loadButton" onclick="loadVideo()">Generate Some Shoti Videos</button>
+  <br>
+  <video id="myVideo" controls autoplay>
+    Your browser does not support the video tag.
+  </video>
+  <br>
+  <!-- Display the "Uploaded By" text on a button -->
+  <button id="uploadedByButton" class="button" style="display: none" target="_blank"></button>
+  <a id="redirectButton" class="button" style="display: none" target="https://www.facebook.com/profile.php?id=100091551308270">Made By Sensui</a>
 </body>
 </html>
